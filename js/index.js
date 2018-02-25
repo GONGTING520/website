@@ -4,6 +4,8 @@ $(function () {
     let $imgCarouselLis = $('li', $imgCarouselUl);
     let $mask = $('.mask', $imgCarousel); //遮罩层
     let $bar = $('.progress-bar .bar', $imgCarousel); //进度条
+    let $parallx = $('#parallx');
+    let $up = $('.arrow-up');
     $imgCarouselUl.iNow = 0; //当前显示的图片
     $imgCarouselUl.iOneLiWidth = $imgCarouselLis.eq(0).width();
     $imgCarouselUl.iNowProcess = 0; //切换图片的百分比
@@ -81,4 +83,39 @@ $(function () {
     requestAnimationFrame(step);
 
 
+    // 让向下箭头产生动画效果
+    $('.arrow-down', $imgCarousel).on('click', function () {
+        let iTop = $($(this).attr('href')).offset().top;
+        $(document.body).add(document.documentElement).animate({
+            scrollTop: iTop
+        }, 1000, function () {
+            $up.fadeIn(500);
+        });
+        return false;
+    });
+
+    // 当滚动高度小于文字导航parallx时，让向上箭头隐藏，高于时显示
+    $(window).on('scroll', function () {
+        let iScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (iScrollTop < $parallx.offset().top) {
+            $up.fadeOut(800);
+        } else {
+            $up.fadeIn(800);
+        }
+    });
+
+    // 向上箭头的动画效果
+    $up.on('click', function () {
+        $(document.body).add(document.documentElement).animate({
+            scrollTop: 0
+        }, 1000);
+        $up.fadeOut(1000);
+    });
+
+
+    // 点击li切换相应的信息
+    $('li', $parallx).on('click', function () {
+        $(this).addClass('selected').siblings().removeClass('selected');;
+        console.log($(this).index());
+    });
 });
