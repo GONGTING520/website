@@ -95,4 +95,43 @@
     background: url(../img/filters-back.jpg);
     height: 134px;
     width: 100%;
+    position: relative;
+}
+
+#parallx ul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#parallx li {
+    float: left;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 0 10px;
+    padding-bottom: 5px;
+    letter-spacing: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#parallx .selected {
+    border-bottom: 1px solid #ffffff;
+}
+
+#parallxImg img {
+    float: left;
+    width: 50%;
+}
+
+.arrow-up {
+    background: url(../img/grab-up.png) no-repeat center;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 65px;
+    right: 5%;
+    animation: vertical 2.5s ease infinite;
+    display: none;
 }
