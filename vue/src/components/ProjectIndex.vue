@@ -6,7 +6,7 @@
             </ul>
         </div>
         <div>
-            <transition-group name="fade" id="project-info">
+            <transition-group class="clearfix" tag="ul" name="fade" id="project-info">
                 <li v-show="projectIndex=='All'||projectIndex==val.classify" v-for="val in projectInfo" :key="val.id">
                     <img :src="val.src">
                     <p v-text="val.info" class="desc"></p>
@@ -72,17 +72,5 @@ export default {
   bottom: 2%;
   left: 50%;
   transform: translate(-50%, 0);
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-.fade-enter-to,
-.fade-leave {
-  opacity: 1;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .3s ease;
 }
 </style>
