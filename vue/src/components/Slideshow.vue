@@ -29,7 +29,14 @@ export default {
   },
   methods: {
     down() {
-      document.body.scrollTop = document.documentElement.scrollTop = document.documentElement.clientHeight;
+      $(document.body)
+        .add(document.documentElement)
+        .animate(
+          {
+            scrollTop: document.documentElement.clientHeight
+          },
+          1000
+        );
     }
   }
 };
