@@ -5,7 +5,8 @@
         <img :src="val.src">
     </li>
   </transition-group>
-  <div class="arrow-down" @click="down()" :style="arrowDownStyle"></div>
+  <div class="arrow-down" @click="down" :style="arrowDownStyle"></div>
+  <div class="process" :style="{width: p/5 + '%'}"></div>
 </div>
 </template>
 
@@ -15,6 +16,7 @@ export default {
     return {
       index: 0,
       timer: null,
+      p: 0,
       arrowDownStyle: {
         background: "url(./static/img/grab-down.png) no-repeat center/contain"
       }
@@ -22,12 +24,27 @@ export default {
   },
   props: ["imgSrc"],
   mounted() {
-    this.timer = setInterval(() => {
-      this.index++;
-      this.index = this.index == this.imgSrc.length ? 0 : this.index;
-    }, 5000);
+    // this.timer = setInterval(() => {
+    //   this.index++;
+    //   this.index = this.index == this.imgSrc.length ? 0 : this.index;
+    // }, 5000);
+    window.requestAnimationFrame =
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.msRequestAnimationFrame;
+      requestAnimationFrame(this.step);      
   },
   methods: {
+    step() {
+      this.p++;
+      if (this.p >= 500) {
+        this.index++;
+        this.index = this.index == this.imgSrc.length ? 0 : this.index;
+        this.p = 0;
+      }
+      requestAnimationFrame(this.step);
+    },
     down() {
       $(document.body)
         .add(document.documentElement)
@@ -83,5 +100,11 @@ li {
   z-index: 10;
   animation: vertical 2.5s ease infinite;
   cursor: pointer;
+}
+.process {
+  background: rgba(0, 0, 0, 0.5);
+  height: 2px;
+  position: absolute;
+  bottom: 1px;
 }
 </style>
