@@ -8,9 +8,9 @@
   <div class="arrow-down" @click="down" :style="arrowDownStyle"></div>
   <div class="process" :style="{width: p/5 + '%'}"></div>
   <div class="layup">
-    <div @mouseover="mouseOverOn='left'" :class="['left',{leftStyle:mouseOverOn=='left'}]"></div>
-    <div @mouseover="mouseOverOn='center'" :class="['center',{centerStyle:mouseOverOn=='center'}]"></div>
-    <div @mouseover="mouseOverOn='right'" :class="['right',{rightStyle:mouseOverOn=='right'}]"></div>
+    <div class="left" :style="leftStyle"></div>
+    <div class="center" :style="centerStyle"></div>
+    <div @click="p=500" class="right" :style="rightStyle"></div>
   </div>
 </div>
 </template>
@@ -22,18 +22,17 @@ export default {
       index: 0,
       timer: null,
       p: 0,
-      mouseOverOn: null,
       arrowDownStyle: {
         background: "url(./static/img/grab-down.png) no-repeat center/contain"
       },
       leftStyle: {
-        cursor: "url(.static/img/cursor/grab-left.png) 8 8, e-resize"
+        cursor: "url(./static/img/cursor/grab-left.png) 8 8, e-resize"
       },
       centerStyle: {
-        cursor: "url(.static/img/cursor/grab-slider.png) 8 8, e-resize"
+        cursor: "url(./static/img/cursor/grab-slider.png) 8 8, e-resize"
       },
       rightStyle: {
-        cursor: "url(.static/img/cursor/grab-right.png) 8 8, e-resize"
+        cursor: "url(./static/img/cursor/grab-right.png) 8 8, e-resize"
       }
     };
   },
