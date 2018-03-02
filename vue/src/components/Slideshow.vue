@@ -7,6 +7,11 @@
   </transition-group>
   <div class="arrow-down" @click="down" :style="arrowDownStyle"></div>
   <div class="process" :style="{width: p/5 + '%'}"></div>
+  <div class="layup">
+    <div @mouseover="mouseOverOn='left'" :class="['left',{leftStyle:mouseOverOn=='left'}]"></div>
+    <div @mouseover="mouseOverOn='center'" :class="['center',{centerStyle:mouseOverOn=='center'}]"></div>
+    <div @mouseover="mouseOverOn='right'" :class="['right',{rightStyle:mouseOverOn=='right'}]"></div>
+  </div>
 </div>
 </template>
 
@@ -17,8 +22,18 @@ export default {
       index: 0,
       timer: null,
       p: 0,
+      mouseOverOn: null,
       arrowDownStyle: {
         background: "url(./static/img/grab-down.png) no-repeat center/contain"
+      },
+      leftStyle: {
+        cursor: "url(.static/img/cursor/grab-left.png) 8 8, e-resize"
+      },
+      centerStyle: {
+        cursor: "url(.static/img/cursor/grab-slider.png) 8 8, e-resize"
+      },
+      rightStyle: {
+        cursor: "url(.static/img/cursor/grab-right.png) 8 8, e-resize"
       }
     };
   },
@@ -33,7 +48,7 @@ export default {
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       window.msRequestAnimationFrame;
-      requestAnimationFrame(this.step);      
+    requestAnimationFrame(this.step);
   },
   methods: {
     step() {
@@ -106,5 +121,18 @@ li {
   height: 2px;
   position: absolute;
   bottom: 1px;
+}
+.layup {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+}
+.layup .left,
+.layup .center,
+.layup .right {
+  flex-grow: 1;
 }
 </style>
