@@ -1,16 +1,16 @@
 <template>
 <div>
-  <transition-group tag="ul" name="slide">
+  <transition-group tag="ul" :name="transitionName">
     <li v-show="index==idx" v-for="(val,idx) in imgSrc" :key="val.id">
         <img :src="val.src">
     </li>
   </transition-group>
   <div class="arrow-down" @click="down" :style="arrowDownStyle"></div>
-  <div class="process" :style="{width: p/5 + '%'}"></div>
+  <div class="process" :style="{width: (p*100)/pMax + '%'}"></div>
   <div class="layup">
-    <div class="left" :style="leftStyle"></div>
-    <div class="center" :style="centerStyle"></div>
-    <div @click="p=500" class="right" :style="rightStyle"></div>
+    <div @click="prev" class="left" :style="leftStyle"></div>
+    <div @mouseup="holdUp($event)" @mousedown="iMouseDownLeft=$event.clientX" class="center" :style="centerStyle"></div>
+    <div @click="p=pMax" class="right" :style="rightStyle"></div>
   </div>
 </div>
 </template>
@@ -20,8 +20,12 @@ export default {
   data() {
     return {
       index: 0,
-      timer: null,
       p: 0,
+      pMax: 500,
+      transitionNameIdx: 0,
+      transitionNameArr: ["slide-left", "slide-right"],
+      iMouseDownLeft: 0,
+      iMouseUpLeft: 0,
       arrowDownStyle: {
         background: "url(./static/img/grab-down.png) no-repeat center/contain"
       },
@@ -37,6 +41,11 @@ export default {
     };
   },
   props: ["imgSrc"],
+  computed: {
+    transitionName() {
+      return this.transitionNameArr[this.transitionNameIdx];
+    }
+  },
   mounted() {
     // this.timer = setInterval(() => {
     //   this.index++;
@@ -52,14 +61,31 @@ export default {
   methods: {
     step() {
       this.p++;
-      if (this.p >= 500) {
+      if (this.p >= this.pMax) {
+        this.transitionNameIdx = 0;
         this.index++;
         this.index = this.index == this.imgSrc.length ? 0 : this.index;
         this.p = 0;
       }
       requestAnimationFrame(this.step);
     },
+    prev() {
+      // 切换到上一张图片
+      this.transitionNameIdx = 1;
+      this.index--;
+      this.index = this.index == -1 ? this.imgSrc.length - 1 : this.index;
+      this.p = 0;
+    },
+    holdUp(e) {
+      this.iMouseUpLeft = e.clientX;
+      if (this.iMouseDownLeft < this.iMouseUpLeft) {
+        this.prev();
+      } else if (this.iMouseDownLeft > this.iMouseUpLeft) {
+        this.p = this.pMax;
+      }
+    },
     down() {
+      // 向下的箭头，滚动到屏幕高度以下
       $(document.body)
         .add(document.documentElement)
         .animate(
@@ -91,18 +117,24 @@ li {
   top: 0;
   left: 0;
 }
-.slide-enter {
+.slide-left-enter,
+.slide-right-leave-to {
   transform: translate(100%, 0);
 }
-.slide-enter-to,
-.slide-leave {
+.slide-left-enter-to,
+.slide-left-leave,
+.slide-right-enter-to,
+.slide-right-leave {
   transform: translate(0, 0);
 }
-.slide-enter-active,
-.slide-leave-active {
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
   transition: transform 0.5s ease;
 }
-.slide-leave-to {
+.slide-left-leave-to,
+.slide-right-enter {
   transform: translate(-100%, 0);
 }
 .arrow-down {
