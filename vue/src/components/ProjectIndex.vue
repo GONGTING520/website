@@ -1,13 +1,13 @@
 <template>
     <div>
         <div id="project-index" :style="'background-image:url('+bgSrc+')'">
-            <ul class="clearfix">
+            <ul class="clearfix text-center">
                 <li @click="changeIndex(val)" :class="{selected:projectIndex==val}" v-for="(val,index) in indexList" :key="index" v-text="val"></li>
             </ul>
         </div>
         <div>
             <transition-group class="clearfix" tag="ul" name="fade" id="project-info">
-                <li v-show="projectIndex=='All'||projectIndex==val.classify" v-for="val in projectInfo" :key="val.id">
+                <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12" v-show="projectIndex=='All'||projectIndex==val.classify" v-for="val in projectInfo" :key="val.id">
                     <img :src="val.src">
                     <p v-text="val.info" class="desc"></p>
                 </li>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       projectIndex: "All",
-      indexList: ["All", "Games", "Tools", "移动端"],
+      indexList: ["All", "Games", "Tools", "移动端"]
     };
   },
   methods: {
@@ -30,18 +30,13 @@ export default {
       this.projectIndex = index;
     }
   },
-  props:['projectInfo','bgSrc']
+  props: ["projectInfo", "bgSrc"]
 };
 </script>
 
 <style scoped>
 #project-index {
   padding: 40px 0;
-}
-#project-index ul {
-  width: 748px;
-  margin: 0 auto;
-  text-align: center;
 }
 #project-index li {
   display: inline-block;
@@ -61,7 +56,7 @@ export default {
 }
 #project-info li {
   position: relative;
-  width: 50%;
+  padding: 0;
   float: left;
 }
 #project-info img {
