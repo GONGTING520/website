@@ -117,26 +117,6 @@ li {
   top: 0;
   left: 0;
 }
-.slide-left-enter,
-.slide-right-leave-to {
-  transform: translate(100%, 0);
-}
-.slide-left-enter-to,
-.slide-left-leave,
-.slide-right-enter-to,
-.slide-right-leave {
-  transform: translate(0, 0);
-}
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition: transform 0.5s ease;
-}
-.slide-left-leave-to,
-.slide-right-enter {
-  transform: translate(-100%, 0);
-}
 .arrow-down {
   position: absolute;
   width: 32px;
