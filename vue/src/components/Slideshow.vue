@@ -1,8 +1,11 @@
 <template>
 <div>
   <transition-group tag="ul" :name="transitionName">
-    <li v-show="index==idx" v-for="(val,idx) in imgSrc" :key="val.id">
-        <img :src="val.src">
+    <li :style="{background:'url('+val.src+') no-repeat center/cover'}" v-show="index==idx" v-for="(val,idx) in imgSrc" :key="val.id">
+        <!-- <img :src="val.src"> -->
+        <div class="word">
+          <h1 v-for="(value,idx) in val.info" v-text="value" :key="idx-100"></h1>
+        </div>
     </li>
   </transition-group>
   <div class="arrow-down" @click="down" :style="arrowDownStyle"></div>
@@ -116,6 +119,12 @@ li {
   position: absolute;
   top: 0;
   left: 0;
+}
+.word{
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  opacity: .8;
 }
 .arrow-down {
   position: absolute;
