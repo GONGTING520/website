@@ -32,6 +32,7 @@ export default {
 body {
   margin: 0;
   overflow-x: hidden;
+  font-family: "Josefin Slab";
 }
 ul {
   padding: 0;
