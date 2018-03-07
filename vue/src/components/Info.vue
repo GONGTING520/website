@@ -7,6 +7,19 @@
             <ul class="col-lg-6 col-md-12 col-sm-12 col-xs-12 project-info">
                 <li class="title">
                     <h1 class="text-uppercase">work</h1>
+                    <ul>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JavaScript</li>
+                        <li>ES6</li>
+                        <li>jQuery</li>
+                        <li>requireJS</li>
+                        <li>json</li>
+                        <li>ajax</li>
+                        <li>Vue</li>
+                        <li>Bootstrap</li>
+                        <li>AMD&CMD</li>
+                    </ul>
                 </li>
                 <li class="title">
                     <h1 class="text-uppercase">work</h1>
