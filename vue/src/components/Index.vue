@@ -84,7 +84,7 @@ export default {
   height: 100vh;
 }
 .info {
-  position: absolute;
+  position: fixed;
   top: 6%;
   left: 6%;
   font-size: 24px;
