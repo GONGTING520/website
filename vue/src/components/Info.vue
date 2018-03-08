@@ -5,30 +5,13 @@
         </div>
         <div class="info-right clearfix">
             <ul class="col-lg-6 col-md-12 col-sm-12 col-xs-12 project-info">
-                <li class="title">
-                    <h1 class="text-uppercase">work</h1>
-                    <ul>
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                        <li>JavaScript</li>
-                        <li>ES6</li>
-                        <li>jQuery</li>
-                        <li>requireJS</li>
-                        <li>json</li>
-                        <li>ajax</li>
-                        <li>Vue</li>
-                        <li>Bootstrap</li>
-                        <li>AMD&CMD</li>
-                    </ul>
-                </li>
-                <li class="title">
-                    <h1 class="text-uppercase">work</h1>
-                </li>
-                <li class="title">
-                    <h1 class="text-uppercase">work</h1>
-                </li>
-                <li class="title">
-                    <h1 class="text-uppercase">work</h1>
+                <li class="title" @mouseover="showInfoIndex=index" @mouseout="showInfoIndex=null" v-for="(val,index) in infoList" :key="val.id">
+                    <h1 class="text-uppercase" v-text="val.title"></h1>
+                    <transition tag="div" name="scale">
+                      <ul v-show="index==showInfoIndex" :key="index-1000" class="sub-info">
+                          <li class="sub-info-li" v-for="(vals,idx) in val.info" v-text="vals" :key="-idx">HTML5</li>
+                      </ul>
+                    </transition>
                 </li>
             </ul>
             <ul class="col-lg-5 col-md-12 col-sm-12 col-xs-12 personal-info">
@@ -42,7 +25,25 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      infoList: [],
+      showInfoIndex: null
+    };
+  },
+  mounted() {
+    axios
+      .get("./static/json/info.json")
+      .then(res => {
+        this.infoList = res.data;
+      })
+      .catch(function() {
+        console.log("error");
+      });
+  }
+};
 </script>
 
 <style scoped>
@@ -86,6 +87,16 @@ export default {};
 }
 .personal-info li {
   margin-bottom: 1.6em;
+  font-size: 1.4em;
+}
+.title .sub-info {
+  transform-origin: top left;
+}
+.sub-info-li {
+  transition: all 0.5s ease;
+}
+.sub-info-li:hover {
+  color: #000000;
   font-size: 1.4em;
 }
 /* 中等屏幕（桌面显示器，大于等于 992px） */
