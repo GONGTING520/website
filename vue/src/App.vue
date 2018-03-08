@@ -66,4 +66,16 @@ li {
 .slide-right-enter {
   transform: translate(-100%, 0);
 }
+.scale-enter,
+.scale-leave-to {
+  transform: scale(0);
+}
+.scale-enter-to,
+.scale-leave {
+  transform: scale(1);
+}
+.scale-enter-active,
+.scale-leave-active {
+  transition: transform 0.5s ease;
+}
 </style>
