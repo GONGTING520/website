@@ -1,11 +1,11 @@
 <template>
 <div>
-  <transition-group tag="ul" :name="transitionName">
-    <li :style="{background:'url('+val.src+') no-repeat center/cover'}" v-show="index==idx" v-for="(val,idx) in imgSrc" :key="val.id">
-        <!-- <img :src="val.src"> -->
-        <div class="word">
-          <h1 v-for="(value,idx) in val.info" v-text="value" :key="idx-100"></h1>
-        </div>
+  <transition-group tag="ul" class="container" :name="transitionName">
+    <li :style="{background:'url('+val.src+') no-repeat center/cover'}" v-show="index==idx" v-for="(val,idx) in imgSrc" :key="val.id"></li>
+  </transition-group>
+  <transition-group tag="ul" class="word" name="toggle">
+    <li v-show="index==idx" v-for="(val,idx) in imgSrc" :key="val.id">
+      <h1 v-for="(value,idx) in val.info" v-text="value" :key="idx-100"></h1>
     </li>
   </transition-group>
   <div class="arrow-down" @click="down" :style="arrowDownStyle"></div>
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style scoped>
-ul {
+.container {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -120,11 +120,15 @@ li {
   top: 0;
   left: 0;
 }
-.word{
+.word {
   position: absolute;
-  bottom: 15%;
+  bottom: 35%;
   left: 10%;
-  opacity: .8;
+  right: 10%;
+  opacity: 0.8;
+}
+.word li {
+  transition-delay: 300ms;
 }
 .arrow-down {
   position: absolute;
@@ -154,5 +158,27 @@ li {
 .layup .center,
 .layup .right {
   flex-grow: 1;
+}
+.toggle-enter {
+  bottom: 15%;
+  opacity: 0;
+}
+.toggle-enter-to {
+  opacity: 1;
+  bottom: 35%;
+}
+.toggle-enter-active {
+  transition: all 0.5s ease-in 5s;
+}
+.toggle-leave {
+  opacity: 1;
+  bottom: 35%;  
+}
+.toggle-leave-to {
+  opacity: 0;
+  bottom: 55%;
+}
+.toggle-leave-active {
+  transition: all 0.5s ease-in;  
 }
 </style>
