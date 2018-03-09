@@ -6,9 +6,9 @@
             </ul>
         </div>
         <div id="project-info" ref="projectInfo">
-            <transition-group class="clearfix" tag="ul" name="fade">
+            <transition-group class="clearfix" tag="ul" name="scale">
               <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12" v-show="projectIndex=='All'||projectIndex==val.classify" v-for="(val,idx) in projectInfo" :key="val.id">
-                <router-link class="project-link" to="/">
+                <router-link class="project-link" :to="val.path">
                   <img ref="image" :src="val.src" :alt="val.info">
                   <div @mousemove="moveTip($event)" @mouseout="bShowTip=false" @mouseover="showTip(idx)" class="projrct-link-layup" :style="{cursor:'url('+val.cursorSrc+') 8 8, e-resize'}"></div>                    
                 </router-link>
@@ -39,17 +39,17 @@ export default {
       this.iTop = e.pageY - this.$refs.projectInfo.offsetTop - 30;
       this.iLeft = e.clientX;
     },
-    showTip(index){
+    showTip(index) {
       this.bShowTip = true;
       this.$refs.tip.innerHTML = this.$refs.image[index].alt;
     }
   },
   computed: {
-    tipStyle(){
+    tipStyle() {
       return {
-        top: this.iTop + 'px',
-        left: this.iLeft + 'px'
-      }
+        top: this.iTop + "px",
+        left: this.iLeft + "px"
+      };
     }
   },
   props: ["projectInfo", "bgSrc"]
@@ -76,7 +76,7 @@ export default {
 #project-index li:hover {
   border-bottom-color: #ffffff;
 }
-#project-info{
+#project-info {
   position: relative;
 }
 #project-info li {
