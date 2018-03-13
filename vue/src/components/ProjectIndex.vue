@@ -7,11 +7,11 @@
         </div>
         <div id="project-info" ref="projectInfo">
             <transition-group class="clearfix" tag="ul" name="scale">
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12" v-show="projectIndex=='All'||projectIndex==val.classify" v-for="(val,idx) in projectInfo" :key="val.id">
-                <router-link class="project-link" :to="val.path">
+              <li @mouseover="up(idx)" @mouseout="down(idx)" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 project-li" v-show="projectIndex=='All'||projectIndex==val.classify" v-for="(val,idx) in projectInfo" :key="val.id">
+                <a class="project-link" :href="val.path">
                   <img ref="image" :src="val.src" :alt="val.info">
                   <div @mousemove="moveTip($event)" @mouseout="bShowTip=false" @mouseover="showTip(idx)" class="projrct-link-layup" :style="{cursor:'url('+val.cursorSrc+') 8 8, e-resize'}"></div>                    
-                </router-link>
+                </a>
               </li>
             </transition-group>
             <p ref="tip" v-show="bShowTip" class="desc" :style="tipStyle"></p>
@@ -32,6 +32,12 @@ export default {
     };
   },
   methods: {
+    up(index) {
+      this.$refs.image[index].style.top = 400 - this.$refs.image[index].offsetHeight  + 'px';
+    },
+    down(index) {
+      this.$refs.image[index].style.top = 0;
+    },
     changeIndex(index) {
       this.projectIndex = index;
     },
@@ -79,13 +85,18 @@ export default {
 #project-info {
   position: relative;
 }
-#project-info li {
+#project-info .project-li {
   position: relative;
   padding: 0;
+  height: 400px;
+  overflow: hidden;
   float: left;
 }
 #project-info img {
   width: 100%;
+  position: absolute;
+  transition: all 1s ease;
+  top: 0;
 }
 #project-info .project-link {
   display: block;
